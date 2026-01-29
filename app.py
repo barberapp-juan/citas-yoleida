@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import json
 import os
+MENSAJES_FILE = "mensajes.json"
 from datetime import datetime
 
 app = Flask(__name__)
@@ -22,6 +23,52 @@ def guardar_datos(archivo, datos):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route("/mensajes", methods=["GET", "POST"])
+def mensajes_cliente():
+    if "usuario" not in session:
+        return redirect("/")
+
+    with open(MENSAJES_FILE, "r") as f:
+        mensajes = json.load(f)
+
+    if request.method == "POST":
+        nuevo = {
+            "usuario": session["usuario"],
+            "mensaje": request.form["mensaje"],
+            "respuesta": ""
+        }
+        mensajes.append(nuevo)
+
+        with open(MENSAJES_FILE, "w") as f:
+            json.dump(mensajes, f, indent=4)
+
+        return redirect("/mensajes")
+
+    mensajes_usuario = [m for m in mensajes if m["usuario"] == session["usuario"]]
+
+    return render_template("mensajes_cliente.html", mensajes=mensajes_usuario)
+
+
+@app.route("/admin/mensajes", methods=["GET", "POST"])
+def mensajes_admin():
+    if "usuario" not in session or session["usuario"] != "admin":
+        return redirect("/")
+
+    with open(MENSAJES_FILE, "r") as f:
+        mensajes = json.load(f)
+
+    if request.method == "POST":
+        index = int(request.form["index"])
+        mensajes[index]["respuesta"] = request.form["respuesta"]
+
+        with open(MENSAJES_FILE, "w") as f:
+            json.dump(mensajes, f, indent=4)
+
+        return redirect("/admin/mensajes")
+
+    return render_template("mensajes_admin.html", mensajes=mensajes)
+
 
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():

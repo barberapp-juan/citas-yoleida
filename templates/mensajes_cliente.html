@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mensajes</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body class="admin-body">
+
+<div class="admin-container">
+
+<h2 class="admin-title">Mensajes</h2>
+
+<form method="POST">
+    <textarea name="mensaje" placeholder="Escribe tu mensaje..." required></textarea>
+    <br><br>
+    <button class="btn verde">Enviar</button>
+</form>
+
+<hr>
+
+{% for m in mensajes %}
+<div class="mensaje-card">
+    <b>Tú:</b> {{ m.mensaje }} <br>
+    {% if m.respuesta %}
+        <b>Respuesta:</b> {{ m.respuesta }}
+    {% else %}
+        <i>Esperando respuesta...</i>
+    {% endif %}
+</div>
+<hr>
+{% endfor %}
+
+<a href="/cliente" class="btn amarillo">Volver</a>
+
+</div>
+
+</body>
+</html>
