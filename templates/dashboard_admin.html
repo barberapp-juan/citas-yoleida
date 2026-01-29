@@ -12,10 +12,11 @@
 
         <h2 class="admin-subtitle">📅 Citas Agendadas</h2>
         <table class="admin-table">
-            <tr>
+             <tr>
                 <th>Usuario</th>
                 <th>Fecha</th>
                 <th>Hora</th>
+                <th>Servicio</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
@@ -24,6 +25,8 @@
                 <td>{{ cita['usuario'] }}</td>
                 <td>{{ cita['fecha'] }}</td>
                 <td>{{ cita['hora'] }}</td>
+                <td>{{ cita.servicio }}</td>
+                <td>{{ cita.estado }}</td>
                 <td>
                     <span class="estado {{ cita['estado']|lower }}">{{ cita['estado'] }}</span>
                 </td>
