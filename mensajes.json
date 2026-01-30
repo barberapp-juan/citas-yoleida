@@ -1,1 +1,32 @@
-[]
+[
+    {
+        "usuario": "1234",
+        "mensaje": "hola como vas ",
+        "respuesta": "bien"
+    },
+    {
+        "usuario": "1234",
+        "mensaje": "me alegra a que hora siempre 3 y 30 ? ",
+        "respuesta": "si claro a esa hora que agendaste "
+    },
+    {
+        "usuario": "1234",
+        "mensaje": "hola como vas ",
+        "respuesta": "bien gracias y tu que tal tu dia "
+    },
+    {
+        "usuario": "1234",
+        "mensaje": "bien chevere voy a las {3 ok",
+        "respuesta": "ok"
+    },
+    {
+        "usuario": "1234",
+        "mensaje": "pa que sepas ",
+        "respuesta": "ok"
+    },
+    {
+        "usuario": "1234",
+        "mensaje": "bueno",
+        "respuesta": "bueno"
+    }
+]

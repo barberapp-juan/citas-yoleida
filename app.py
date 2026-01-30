@@ -49,27 +49,6 @@ def mensajes_cliente():
 
     return render_template("mensajes_cliente.html", mensajes=mensajes_usuario)
 
-
-@app.route("/admin/mensajes", methods=["GET", "POST"])
-def mensajes_admin():
-    if "usuario" not in session or session["usuario"] != "admin":
-        return redirect("/")
-
-    with open(MENSAJES_FILE, "r") as f:
-        mensajes = json.load(f)
-
-    if request.method == "POST":
-        index = int(request.form["index"])
-        mensajes[index]["respuesta"] = request.form["respuesta"]
-
-        with open(MENSAJES_FILE, "w") as f:
-            json.dump(mensajes, f, indent=4)
-
-        return redirect("/admin/mensajes")
-
-    return render_template("mensajes_admin.html", mensajes=mensajes)
-
-
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
     if request.method == 'POST':
@@ -200,6 +179,24 @@ def eliminar_cita():
         guardar_datos(CITAS_FILE, citas)
 
     return redirect(url_for('panel_admin'))
+
+@app.route('/mensajes_admin', methods=['GET', 'POST'])
+def mensajes_admin():
+    if session.get('rol') != 'admin':
+        return redirect('/login')
+
+    mensajes = cargar_datos(MENSAJES_FILE)
+
+    if request.method == 'POST':
+        index = int(request.form.get('index'))
+        respuesta = request.form.get('respuesta')
+
+        mensajes[index]['respuesta'] = respuesta
+        guardar_datos(MENSAJES_FILE, mensajes)
+
+        return redirect('/mensajes_admin')
+
+    return render_template('mensajes_admin.html', mensajes=mensajes)
 
 if __name__ == '__main__':
    app.run(host="0.0.0.0", port=5000, debug=True)

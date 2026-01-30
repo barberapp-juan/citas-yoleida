@@ -17,15 +17,18 @@
 <div class="mensaje-card">
 
 <b>Cliente:</b> {{ m.usuario }} <br>
-<b>Mensaje:</b> {{ m.mensaje }}
+<b>Mensaje:</b> {{ m.mensaje }} <br><br>
 
+{% if m.respuesta %}
+<b>Tu respuesta:</b> {{ m.respuesta }}
+{% else %}
 <form method="POST">
     <input type="hidden" name="index" value="{{ loop.index0 }}">
-    <br>
     <textarea name="respuesta" placeholder="Responder..." required></textarea>
     <br><br>
     <button class="btn verde">Responder</button>
 </form>
+{% endif %}
 
 </div>
 <hr>

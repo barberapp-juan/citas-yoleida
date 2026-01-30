@@ -14,5 +14,9 @@
     {
         "usuario": "fabiana",
         "contrasena": "1234"
+    },
+    {
+        "usuario": "1234",
+        "contrasena": "1234"
     }
 ]
